@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Icono de Rezo Católico Diario">
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#142844"/>
+    </linearGradient>
+    <linearGradient id="gold-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E6C36A"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Marian blue background -->
+  <rect width="512" height="512" rx="96" fill="url(#bg-grad)"/>
+
+  <!-- Subtle outer gold ring -->
+  <circle cx="256" cy="256" r="188" fill="none" stroke="url(#gold-grad)" stroke-width="6" opacity="0.85"/>
+  <circle cx="256" cy="256" r="172" fill="none" stroke="#FAF7F2" stroke-width="2" opacity="0.25"/>
+
+  <!-- Subtle rosary beads around the upper/lower arc -->
+  <g fill="#E6C36A" opacity="0.9">
+    <circle cx="256" cy="68" r="7"/>
+    <circle cx="314" cy="77" r="6"/>
+    <circle cx="366" cy="104" r="6"/>
+    <circle cx="408" cy="146" r="6"/>
+    <circle cx="435" cy="198" r="6"/>
+    <circle cx="444" cy="256" r="7"/>
+    <circle cx="435" cy="314" r="6"/>
+    <circle cx="408" cy="366" r="6"/>
+    <circle cx="366" cy="408" r="6"/>
+    <circle cx="314" cy="435" r="6"/>
+    <circle cx="256" cy="444" r="7"/>
+    <circle cx="198" cy="435" r="6"/>
+    <circle cx="146" cy="408" r="6"/>
+    <circle cx="104" cy="366" r="6"/>
+    <circle cx="77" cy="314" r="6"/>
+    <circle cx="68" cy="256" r="7"/>
+    <circle cx="77" cy="198" r="6"/>
+    <circle cx="104" cy="146" r="6"/>
+    <circle cx="146" cy="104" r="6"/>
+    <circle cx="198" cy="77" r="6"/>
+  </g>
+
+  <!-- Latin Cross in warm ivory with gold inner highlight -->
+  <path d="M236 120 H276 V206 H356 V246 H276 V392 H236 V246 H156 V206 H236 Z" fill="#FAF7F2"/>
+  <path d="M248 134 H264 V218 H342 V234 H264 V378 H248 V234 H170 V218 H248 Z" fill="url(#gold-grad)" opacity="0.9"/>
+</svg>
