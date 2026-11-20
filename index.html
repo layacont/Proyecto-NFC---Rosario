@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light" data-font-size="md">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Rezo Diario">
+  <meta name="theme-color" content="#1E3A5F">
+  <meta name="description" content="Guía de oración católica diaria: Santo Rosario, Evangelio del día y Coronilla de la Divina Misericordia.">
+  <title>Rezo Católico Diario</title>
+
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-brand">
+      <h1 class="app-title">Rezo Católico Diario</h1>
+      <p id="current-date" class="current-date" aria-live="polite"></p>
+    </div>
+
+    <div class="header-controls">
+      <div class="font-controls" role="group" aria-label="Tamaño de letra">
+        <button type="button" id="font-dec" class="ctrl-btn" data-font="sm" aria-label="Reducir tamaño de letra">A-</button>
+        <button type="button" id="font-reset" class="ctrl-btn is-active" data-font="md" aria-label="Tamaño de letra normal">A</button>
+        <button type="button" id="font-inc" class="ctrl-btn" data-font="lg" aria-label="Aumentar tamaño de letra">A+</button>
+      </div>
+      <button type="button" id="theme-toggle" class="ctrl-btn theme-btn" aria-pressed="false" aria-label="Alternar modo de lectura nocturna">
+        <span aria-hidden="true">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="tab-nav" role="tablist" aria-label="Secciones de oración">
+    <button type="button" id="tab-rosario" class="tab-btn active" role="tab" data-tab="rosario" aria-selected="true" aria-controls="panel-rosario">Santo Rosario</button>
+    <button type="button" id="tab-evangelio" class="tab-btn" role="tab" data-tab="evangelio" aria-selected="false" aria-controls="panel-evangelio">Evangelio</button>
+    <button type="button" id="tab-coronilla" class="tab-btn" role="tab" data-tab="coronilla" aria-selected="false" aria-controls="panel-coronilla">Coronilla</button>
+  </nav>
+
+  <main class="app-main">
+    <section id="panel-rosario" class="tab-panel active" role="tabpanel" aria-labelledby="tab-rosario">
+      <div class="mystery-toolbar">
+        <span id="mystery-auto-badge" class="mystery-badge"></span>
+        <label for="mystery-select" class="sr-only">Seleccionar misterios</label>
+        <select id="mystery-select" class="mystery-select">
+          <option value="gozosos">Misterios Gozosos (Lunes y Sábado)</option>
+          <option value="dolorosos">Misterios Dolorosos (Martes y Viernes)</option>
+          <option value="gloriosos">Misterios Gloriosos (Miércoles y Domingo)</option>
+          <option value="luminosos">Misterios Luminosos (Jueves)</option>
+        </select>
+      </div>
+      <div id="rosario-content" class="prayer-flow"></div>
+    </section>
+
+    <section id="panel-evangelio" class="tab-panel" role="tabpanel" aria-labelledby="tab-evangelio" hidden>
+      <div id="evangelio-content" class="gospel-flow"></div>
+    </section>
+
+    <section id="panel-coronilla" class="tab-panel" role="tabpanel" aria-labelledby="tab-coronilla" hidden>
+      <div id="coronilla-content" class="prayer-flow"></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Rezo Católico Diario · Ad Maiorem Dei Gloriam</p>
+  </footer>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>

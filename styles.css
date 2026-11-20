@@ -1,0 +1,844 @@
+/* ==========================================================================
+   Rezo Católico Diario — Hoja de estilos principal
+   Mobile-first, lectura continua vertical, optimizado para iOS Safari y PWA.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Variables de tema y tipografía
+   -------------------------------------------------------------------------- */
+:root,
+html[data-theme="light"] {
+  --bg-page: #FAF7F2;
+  --bg-surface: #FFFFFF;
+  --bg-surface-alt: #F3EDE2;
+  --bg-nav: rgba(250, 247, 242, 0.92);
+
+  --text-primary: #2C241E;
+  --text-muted: #6B5B4E;
+  --text-on-accent: #FFFFFF;
+
+  --accent-gold: #B8860B;
+  --accent-gold-soft: rgba(184, 134, 11, 0.12);
+  --marian-blue: #1E3A5F;
+  --marian-blue-soft: rgba(30, 58, 95, 0.08);
+
+  --border-subtle: #E5DDD0;
+  --border-strong: #D2C6B4;
+  --shadow-card: 0 2px 10px rgba(44, 36, 30, 0.05);
+  --shadow-nav: 0 2px 8px rgba(44, 36, 30, 0.06);
+
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  --bg-page: #161412;
+  --bg-surface: #211D19;
+  --bg-surface-alt: #2A2520;
+  --bg-nav: rgba(22, 20, 18, 0.92);
+
+  --text-primary: #E8DFD5;
+  --text-muted: #ADA093;
+  --text-on-accent: #161412;
+
+  --accent-gold: #D4A843;
+  --accent-gold-soft: rgba(212, 168, 67, 0.14);
+  --marian-blue: #5C85B8;
+  --marian-blue-soft: rgba(92, 133, 184, 0.16);
+
+  --border-subtle: #352F29;
+  --border-strong: #4A423A;
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.28);
+  --shadow-nav: 0 2px 10px rgba(0, 0, 0, 0.35);
+
+  color-scheme: dark;
+}
+
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Iowan Old Style", Georgia, "Palatino Linotype", "Book Antiqua",
+    Palatino, serif;
+
+  --reading-size: 1.0625rem; /* 17px por defecto (md) */
+  --reading-leading: 1.72;
+  --measure: 68ch;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --tap-min: 44px;
+
+  --transition-theme: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+/* Escalado de tamaño de lectura */
+html[data-font-size="sm"] {
+  --reading-size: 0.9375rem; /* 15px */
+}
+
+html[data-font-size="md"] {
+  --reading-size: 1.0625rem; /* 17px */
+}
+
+html[data-font-size="lg"] {
+  --reading-size: 1.21875rem; /* 19.5px */
+}
+
+html[data-font-size="xl"] {
+  --reading-size: 1.375rem; /* 22px */
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset base y utilidades
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  background-color: var(--bg-page);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans);
+  font-size: var(--reading-size);
+  line-height: var(--reading-leading);
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+  transition: var(--transition-theme), font-size 0.18s ease;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+button,
+select,
+a {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
+/* Clase de accesibilidad para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Cabecera y controles superiores
+   -------------------------------------------------------------------------- */
+.app-header {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: calc(0.875rem + env(safe-area-inset-top))
+    max(1rem, env(safe-area-inset-right))
+    0.875rem
+    max(1rem, env(safe-area-inset-left));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  transition: var(--transition-theme);
+}
+
+.app-header > div:first-child,
+.header-brand {
+  min-width: 0;
+  flex: 1 1 12rem;
+}
+
+.app-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--marian-blue);
+}
+
+.current-date {
+  margin-top: 0.2rem;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--text-muted);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.font-controls {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  gap: 2px;
+}
+
+.ctrl-btn {
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 0 0.625rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: calc(var(--radius-sm) - 2px);
+  background-color: transparent;
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-theme), transform 0.1s ease;
+}
+
+.ctrl-btn:hover {
+  background-color: var(--marian-blue-soft);
+}
+
+.ctrl-btn:active {
+  transform: scale(0.96);
+}
+
+.ctrl-btn.is-active {
+  background-color: var(--marian-blue);
+  color: var(--text-on-accent);
+  border-color: var(--marian-blue);
+}
+
+.theme-btn {
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--accent-gold);
+  font-size: 1.125rem;
+}
+
+.theme-btn[aria-pressed="true"] {
+  background-color: var(--accent-gold-soft);
+  border-color: var(--accent-gold);
+}
+
+/* --------------------------------------------------------------------------
+   4. Navegación fija (Sticky Tab Bar)
+   -------------------------------------------------------------------------- */
+.tab-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: var(--bg-nav);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-nav);
+  padding: 0.375rem max(0.75rem, env(safe-area-inset-right))
+    0.375rem max(0.75rem, env(safe-area-inset-left));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.375rem;
+  transition: var(--transition-theme);
+}
+
+.tab-btn {
+  min-height: var(--tap-min);
+  padding: 0.5rem 0.4rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-theme), transform 0.1s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-surface-alt);
+}
+
+.tab-btn:active {
+  transform: scale(0.98);
+}
+
+.tab-btn.active,
+.tab-btn[aria-selected="true"] {
+  background-color: var(--marian-blue);
+  color: var(--text-on-accent);
+  box-shadow: 0 1px 4px rgba(30, 58, 95, 0.22);
+}
+
+/* --------------------------------------------------------------------------
+   5. Contenedor principal y paneles
+   -------------------------------------------------------------------------- */
+.app-main {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.25rem max(1rem, env(safe-area-inset-right))
+    2.5rem max(1rem, env(safe-area-inset-left));
+}
+
+.tab-panel {
+  display: block;
+}
+
+.tab-panel[hidden] {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   6. Barra de selección de misterios (Rosario)
+   -------------------------------------------------------------------------- */
+.mystery-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.625rem 0.875rem;
+  padding: 0.75rem 0.875rem;
+  margin-bottom: 1.25rem;
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: var(--transition-theme);
+}
+
+.mystery-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background-color: var(--accent-gold-soft);
+  border: 1px solid var(--accent-gold);
+  color: var(--text-primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.mystery-select {
+  min-height: var(--tap-min);
+  flex: 1 1 12.5rem;
+  max-width: 100%;
+  padding: 0.5rem 2.25rem 0.5rem 0.875rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--marian-blue) 50%),
+    linear-gradient(135deg, var(--marian-blue) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  transition: var(--transition-theme);
+}
+
+/* --------------------------------------------------------------------------
+   7. Flujo continuo de oración (Rosario y Coronilla)
+   -------------------------------------------------------------------------- */
+.prayer-flow,
+.gospel-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+
+.prayer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: 1.3em;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--marian-blue);
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid var(--accent-gold);
+  letter-spacing: -0.005em;
+}
+
+.prayer-block {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.05rem 1.15rem;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-theme);
+}
+
+.prayer-title {
+  font-family: var(--font-serif);
+  font-size: 1.08em;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--marian-blue);
+  margin-bottom: 0.45rem;
+}
+
+.prayer-text {
+  color: var(--text-primary);
+  line-height: var(--reading-leading);
+}
+
+.prayer-text + .prayer-text {
+  margin-top: 0.65rem;
+}
+
+.prayer-text + .prayer-title,
+.prayer-note + .prayer-text,
+.prayer-text + .decade-conclusion {
+  margin-top: 0.85rem;
+}
+
+.prayer-note {
+  margin-top: 0.65rem;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid var(--accent-gold);
+  background-color: var(--bg-surface-alt);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.88em;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. Tarjetas de Misterios del Santo Rosario
+   -------------------------------------------------------------------------- */
+.mystery-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--marian-blue);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.15rem 1.1rem;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-theme);
+}
+
+.mystery-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.mystery-number {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.78em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-gold);
+}
+
+.mystery-title {
+  font-family: var(--font-serif);
+  font-size: 1.18em;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--marian-blue);
+}
+
+.mystery-citation {
+  font-size: 0.88em;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.mystery-meditation {
+  color: var(--text-primary);
+  line-height: var(--reading-leading);
+  margin-bottom: 0.85rem;
+}
+
+.mystery-cues {
+  padding: 0.75rem 0.9rem;
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 0.92em;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   9. Letanías Lauretanas
+   -------------------------------------------------------------------------- */
+.litany-list {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.4rem 1.05rem;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-theme);
+}
+
+.prayer-block .litany-list {
+  margin: 0.6rem 0 0.75rem;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.litany-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.2rem 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.litany-row:last-child {
+  border-bottom: none;
+}
+
+.litany-invocation {
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1 1 12rem;
+}
+
+.litany-response {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin-left: auto;
+}
+
+/* --------------------------------------------------------------------------
+   10. Coronilla de la Divina Misericordia
+   -------------------------------------------------------------------------- */
+.decade-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--accent-gold);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.15rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  transition: var(--transition-theme);
+}
+
+.decade-header {
+  font-family: var(--font-serif);
+  font-size: 1.12em;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--marian-blue);
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.decade-prayer {
+  color: var(--text-primary);
+  line-height: var(--reading-leading);
+}
+
+.decade-repeat {
+  padding: 0.7rem 0.9rem;
+  background-color: var(--bg-surface-alt);
+  border-left: 3px solid var(--marian-blue);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.decade-conclusion {
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--border-strong);
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   11. Evangelio del Día y tarjeta de respaldo (Fallback)
+   -------------------------------------------------------------------------- */
+.gospel-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-top: 4px solid var(--marian-blue);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.2rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  transition: var(--transition-theme);
+}
+
+.gospel-citation {
+  font-family: var(--font-serif);
+  font-size: 1.22em;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--marian-blue);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.gospel-text {
+  color: var(--text-primary);
+  line-height: var(--reading-leading);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.gospel-text p {
+  margin: 0;
+}
+
+.gospel-source {
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.82em;
+  color: var(--text-muted);
+}
+
+.gospel-loading {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.25rem;
+  text-align: center;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.gospel-loading::before {
+  content: "";
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--border-subtle);
+  border-top-color: var(--accent-gold);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fallback-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--accent-gold);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.2rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: var(--transition-theme);
+}
+
+.fallback-card h2,
+.fallback-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15em;
+  color: var(--marian-blue);
+}
+
+.fallback-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.fallback-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-retry {
+  min-height: var(--tap-min);
+  padding: 0.7rem 1.1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-theme), transform 0.1s ease, opacity 0.15s ease;
+}
+
+.btn-primary {
+  background-color: var(--marian-blue);
+  color: var(--text-on-accent);
+  border: 1px solid var(--marian-blue);
+}
+
+.btn-primary:hover {
+  opacity: 0.92;
+}
+
+.btn-secondary {
+  background-color: var(--bg-surface-alt);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+}
+
+.btn-secondary:hover {
+  border-color: var(--marian-blue);
+}
+
+.btn-retry {
+  background-color: transparent;
+  color: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
+}
+
+.btn-retry:hover {
+  background-color: var(--accent-gold-soft);
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-retry:active {
+  transform: scale(0.98);
+}
+
+/* --------------------------------------------------------------------------
+   12. Pie de página
+   -------------------------------------------------------------------------- */
+.app-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface-alt);
+  padding: 1rem max(1rem, env(safe-area-inset-right))
+    calc(1.25rem + env(safe-area-inset-bottom))
+    max(1rem, env(safe-area-inset-left));
+  text-align: center;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  transition: var(--transition-theme);
+}
+
+/* --------------------------------------------------------------------------
+   13. Media queries (Pantallas medianas/grandes y movimiento reducido)
+   -------------------------------------------------------------------------- */
+@media (min-width: 600px) {
+  .app-header {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+
+  .app-title {
+    font-size: 1.55rem;
+  }
+
+  .tab-nav {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+    justify-content: center;
+  }
+
+  .app-main {
+    padding: 1.75rem 1.5rem 3rem;
+  }
+
+  .prayer-block,
+  .mystery-card,
+  .decade-card,
+  .gospel-card,
+  .fallback-card {
+    padding: 1.35rem 1.5rem;
+  }
+
+  .fallback-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .fallback-actions > * {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
